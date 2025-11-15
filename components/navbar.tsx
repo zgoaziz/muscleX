@@ -26,9 +26,9 @@ export function Navbar() {
   const adminItems = user?.role === "admin" ? [{ href: "/dashboard", label: "Dashboard", icon: Zap }] : []
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent pt-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 bg-white/10 backdrop-blur-md rounded-t-3xl rounded-b-3xl px-6 shadow-lg border border-white/20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
@@ -84,7 +84,7 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-white/10">
+          <div className="md:hidden pb-4 border-t border-white/10 bg-white/10 backdrop-blur-md rounded-b-3xl mt-2 shadow-lg border border-white/20">
             {navItems.map((item) => {
               const Icon = item.icon
               return (

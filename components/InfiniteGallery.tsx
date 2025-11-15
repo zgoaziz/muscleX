@@ -295,6 +295,14 @@ function GalleryScene({
 	// Handle scroll input without blocking page scroll
 	const handleWheel = useCallback(
 		(event: WheelEvent) => {
+			// Only handle scroll if hovering over the gallery
+			const target = event.target as HTMLElement;
+			const canvas = target.closest('canvas');
+			if (!canvas) return;
+			
+			// Prevent default only when interacting with the gallery
+			event.stopPropagation();
+			
 			setScrollVelocity((prev) => prev + event.deltaY * 0.01 * speed);
 			setAutoPlay(false);
 			lastInteraction.current = Date.now();
@@ -321,15 +329,14 @@ function GalleryScene({
 	useEffect(() => {
 		const canvas = document.querySelector('canvas');
 		if (canvas) {
-			canvas.addEventListener('wheel', handleWheel, { passive: true });
+			// Remove wheel event listener - let page scroll naturally
 			document.addEventListener('keydown', handleKeyDown);
 
 			return () => {
-				canvas.removeEventListener('wheel', handleWheel);
 				document.removeEventListener('keydown', handleKeyDown);
 			};
 		}
-	}, [handleWheel, handleKeyDown]);
+	}, [handleKeyDown]);
 
 	// Auto-play logic
 	useEffect(() => {
@@ -494,7 +501,7 @@ function GalleryScene({
 						key={plane.index}
 						texture={texture}
 						position={[plane.x, plane.y, worldZ]} // Position planes relative to camera center
-						scale={scale}
+						scale={[-scale[0], scale[1], scale[2]]} // Invert X scale to flip horizontally
 						material={material}
 					/>
 				);
@@ -575,6 +582,7 @@ export default function InfiniteGallery({
 			<Canvas
 				camera={{ position: [0, 0, 0], fov: 55 }}
 				gl={{ antialias: true, alpha: true }}
+				style={{ pointerEvents: 'none' }}
 			>
 				<GalleryScene
 					images={images}

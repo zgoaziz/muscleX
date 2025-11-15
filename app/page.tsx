@@ -20,10 +20,11 @@ export default function Home() {
   ]
 
   return (
-    <main className="h-screen overflow-y-auto snap-y snap-mandatory pt-16 md:pt-20">
+    <main className="overflow-y-auto">
       <Navbar />
-        <div className="w-full h-screen bg-black relative snap-start">
-          <div className="absolute top-20 left-0 right-0 z-10 p-6">
+      <div>
+        <div className="w-full h-screen bg-black relative">
+          <div className="absolute top-40 left-0 right-0 z-10 p-6">
             <h1 className="max-w-[750px] mx-auto text-white text-center font-instrument-serif px-6 md:text-6xl text-4xl tracking-tight font-normal">
               The cosmos is within us. We are made of star-stuff. We are a way for the universe to know itself.
             </h1>
@@ -39,8 +40,9 @@ export default function Home() {
         {/* Smooth transition from black (first section) to white (second section) */}
         <div className="w-full h-24 bg-gradient-to-b from-black to-white" />
 
-        <section className="relative h-screen bg-white snap-start">
-          <InfiniteGallery
+        <section className="relative h-screen bg-white">
+          <div className="absolute inset-0 pointer-events-none">
+            <InfiniteGallery
 				images={sampleImages}
 				speed={1.2}
 				zSpacing={3}
@@ -48,25 +50,20 @@ export default function Home() {
 				falloff={{ near: 0.8, far: 14 }}
 				className="h-screen w-full rounded-lg overflow-hidden"
 			/>
-			<div className="h-screen inset-0 pointer-events-none fixed flex items-center justify-center text-center px-3 mix-blend-exclusion text-white">
+          </div>
+			<div className="h-screen inset-0 pointer-events-none absolute flex items-center justify-center text-center px-3 mix-blend-exclusion text-white">
 				<h1 className="font-serif text-4xl md:text-7xl tracking-tight">
 					<span className="italic">I create;</span> therefore I am
 				</h1>
 			</div>
 
-			<div className="text-center fixed bottom-10 left-0 right-0 font-mono uppercase text-[11px] font-semibold">
-				<p>Use mouse wheel, arrow keys, or touch to navigate</p>
-				<p className=" opacity-60">
-					Auto-play resumes after 3 seconds of inactivity
-				</p>
-			</div>
-
-          {/* Local help overlay for this section only */}
-          <div className="absolute bottom-10 left-0 right-0 text-center font-mono uppercase text-[11px] font-semibold text-black/70">
+          {/* Help overlay for this section */}
+          <div className="absolute bottom-10 left-0 right-0 text-center font-mono uppercase text-[11px] font-semibold text-black/70 pointer-events-none">
             <p>Use mouse wheel, arrow keys, or touch to navigate</p>
             <p className="opacity-60">Auto-play resumes after 3 seconds of inactivity</p>
           </div>
         </section>
+      </div>
 
       <Hero />
       <footer className="border-t border-border bg-secondary text-secondary-foreground">
