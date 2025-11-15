@@ -501,7 +501,7 @@ function GalleryScene({
 						key={plane.index}
 						texture={texture}
 						position={[plane.x, plane.y, worldZ]} // Position planes relative to camera center
-						scale={[-scale[0], scale[1], scale[2]]} // Invert X scale to flip horizontally
+						scale={scale}
 						material={material}
 					/>
 				);
